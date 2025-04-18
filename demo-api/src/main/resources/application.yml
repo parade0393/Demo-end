@@ -1,0 +1,16 @@
+# 服务器配置
+server:
+  port: 8080
+  servlet:
+    # API接口统一访问前缀路径
+    context-path: /api
+
+# Spring配置
+spring:
+  application:
+    name: rbac-admin
+  
+# 日志配置
+logging:
+  level:
+    com.example: info
