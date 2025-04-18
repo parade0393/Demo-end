@@ -13,4 +13,5 @@ spring:
 # 日志配置
 logging:
   level:
+    # 设置com.example包下的日志级别为info
     com.example: info
