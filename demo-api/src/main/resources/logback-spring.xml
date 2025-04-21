@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Logback配置文件 - 用于控制日志的输出行为、格式和存储方式 -->
+<configuration>
+    <!-- 从Spring配置文件中读取基础包名配置 -->
+    <springProperty scope="context" name="basePackage" source="app.base-package"/>
+    
+    <!-- 从Spring配置文件中读取操作系统相关的日志路径配置 -->
+    <springProperty scope="context" name="windows.log.path" source="logging.path.windows"/>
+    <springProperty scope="context" name="linux.log.path" source="logging.path.linux"/>
+    
+    <!-- 根据操作系统类型选择日志路径 -->
+    <if condition='property("os.name").toLowerCase().contains("windows")'>
+        <then>
+            <property name="log.path" value="${windows.log.path}"/>
+        </then>
+        <else>
+            <property name="log.path" value="${linux.log.path}"/>
+        </else>
+    </if>
+    <!-- 日志输出格式 - 定义日志的显示格式，包含以下元素：
+         %d{yyyy-MM-dd HH:mm:ss.SSS} - 日期时间，精确到毫秒
+         [%thread] - 输出日志的线程名
+         %-5level - 日志级别，用5个字符右对齐（如：INFO、ERROR）
+         %logger{20} - 输出日志的logger名，最大20个字符
+         [%method,%line] - 输出日志的方法名和行号
+         %msg%n - 日志消息和换行符
+    -->
+    <property name="log.pattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{20} - [%method,%line] - %msg%n" />
+    
+    <!-- 控制台输出 - 将日志输出到控制台，主要用于开发调试阶段查看实时日志 -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+    
+    <!-- 系统日志输出 - 将INFO级别的日志输出到文件，用于记录系统的正常运行信息 -->
+    <appender name="file_info" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/info.log</file>
+        <!-- 循环政策：基于时间创建日志文件 - 每天创建一个新的日志文件，避免单个文件过大 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${log.path}/info.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 - 此appender只接收INFO级别的日志 -->
+            <level>INFO</level>
+            <!-- 匹配时的操作：接收（记录）- 当日志级别等于INFO时，接收并记录日志 -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录）- 当日志级别不是INFO时（如DEBUG、WARN、ERROR等），拒绝记录 -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    
+    <!-- 系统错误日志输出 - 将ERROR级别的日志单独输出到错误日志文件，便于快速定位系统错误 -->
+    <appender name="file_error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${log.path}/error.log</file>
+        <!-- 循环政策：基于时间创建日志文件 - 每天创建一个新的日志文件，避免单个文件过大 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 日志文件名格式 -->
+            <fileNamePattern>${log.path}/error.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <!-- 日志最大的历史 60天 -->
+            <maxHistory>60</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>${log.pattern}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <!-- 过滤的级别 - 此appender只接收ERROR级别的日志 -->
+            <level>ERROR</level>
+            <!-- 匹配时的操作：接收（记录）- 当日志级别等于ERROR时，接收并记录日志 -->
+            <onMatch>ACCEPT</onMatch>
+            <!-- 不匹配时的操作：拒绝（不记录）- 当日志级别不是ERROR时（如DEBUG、INFO、WARN等），拒绝记录 -->
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    
+    <!-- 异步输出 - 通过异步方式处理日志，提高系统性能，减少日志记录对主业务的影响 -->
+    <appender name="async_info" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 不丢失日志，默认的，如果队列的80%已满，则会丢弃TRACE、DEBUG、INFO级别的日志 -->
+        <!-- 设置为0表示不丢弃任何日志，即使队列已满也会阻塞而不是丢弃日志 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 更改默认的队列深度，该值会影响性能，默认值为256 -->
+        <!-- 队列越大，可以缓存的日志越多，但会占用更多内存 -->
+        <queueSize>512</queueSize>
+        <!-- 添加附加的appender，最多只能添加一个 -->
+        <!-- 此处引用file_info appender，表示异步处理INFO级别的日志 -->
+        <appender-ref ref="file_info"/>
+    </appender>
+    
+    <!-- 异步错误日志输出 - 单独处理ERROR级别的日志，确保错误日志不会丢失 -->
+    <appender name="async_error" class="ch.qos.logback.classic.AsyncAppender">
+        <!-- 设置为0表示即使队列满了也不丢弃错误日志，确保所有错误都被记录 -->
+        <discardingThreshold>0</discardingThreshold>
+        <!-- 队列大小设置为512，提供足够的缓冲空间处理突发的错误日志 -->
+        <queueSize>512</queueSize>
+        <!-- 引用file_error appender，表示异步处理ERROR级别的日志 -->
+        <appender-ref ref="file_error"/>
+    </appender>
+    
+    <!-- 开发环境 - 开发阶段使用的日志配置，提供更详细的日志信息辅助开发调试 -->
+    <springProfile name="dev">
+        <!-- root是默认的日志配置，level="info"表示默认记录INFO及以上级别(INFO、WARN、ERROR)的日志 -->
+        <root level="info">
+            <!-- 开发环境下同时输出到控制台和文件，方便开发调试 -->
+            <appender-ref ref="console" />
+            <appender-ref ref="async_info" />
+            <appender-ref ref="async_error" />
+        </root>
+        <!-- 项目自身的包设置为debug级别，可以看到更详细的调试信息 -->
+        <logger name="${basePackage}" level="debug" />
+    </springProfile>
+    
+    <!-- 测试环境 - 用于测试阶段的日志配置，保留必要的信息用于问题分析 -->
+    <springProfile name="test">
+        <!-- 测试环境下默认记录INFO及以上级别的日志 -->
+        <root level="info">
+            <!-- 测试环境同时输出到控制台和文件，便于测试人员查看日志 -->
+            <appender-ref ref="console" />
+            <appender-ref ref="async_info" />
+            <appender-ref ref="async_error" />
+        </root>
+        <!-- 项目自身的包设置为info级别，只记录必要的信息，不记录debug信息 -->
+        <logger name="${basePackage}" level="info" />
+    </springProfile>
+    
+    <!-- 生产环境 - 用于线上运行的日志配置，只记录重要信息，减少日志量，提高性能 -->
+    <springProfile name="prod">
+        <!-- 生产环境下默认记录INFO及以上级别的日志 -->
+        <root level="info">
+            <!-- 生产环境同样配置了控制台输出，但实际部署时通常只关注文件日志 -->
+            <appender-ref ref="console" />
+            <appender-ref ref="async_info" />
+            <appender-ref ref="async_error" />
+        </root>
+        <!-- 项目自身的包设置为warn级别，只记录警告和错误，减少日志数量，提高系统性能 -->
+        <!-- 这意味着只有WARN和ERROR级别的日志会被记录，而INFO和DEBUG级别的日志会被忽略 -->
+        <logger name="${basePackage}" level="warn" />
+    </springProfile>
+</configuration>
