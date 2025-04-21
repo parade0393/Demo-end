@@ -40,9 +40,30 @@
 
     <build>
         <plugins>
+            <!-- Spring Boot Maven 插件配置 -->
+            <!-- Spring Boot Maven 插件的主要作用：
+                1. 打包：将应用打包成可执行的jar/war包，包含所有依赖和资源
+                2. 运行：提供 mvn spring-boot:run 命令来快速启动应用
+                3. 依赖管理：自动处理依赖关系，确保版本兼容性
+                4. 构建信息：添加构建信息到打包文件中
+
+                这里配置了 excludes 来排除 lombok，因为：
+                - lombok 只在编译时需要，运行时不需要
+                - 排除 lombok 可以减小最终包的体积
+                - 避免潜在的运行时冲突 -->
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!-- 排除依赖配置 -->
+                    <excludes>
+                        <!-- 排除 lombok 依赖，避免将 lombok 打包到最终的 jar 包中 -->
+                        <exclude>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                        </exclude>
+                    </excludes>
+                </configuration>
             </plugin>
         </plugins>
     </build>
