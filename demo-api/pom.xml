@@ -40,6 +40,10 @@
             <groupId>me.parade</groupId>
             <artifactId>demo-system</artifactId>
         </dependency>
+        <dependency>
+            <groupId>me.parade</groupId>
+            <artifactId>demo-common</artifactId>
+        </dependency>
     </dependencies>
 
     <build>

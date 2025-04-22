@@ -1,6 +1,7 @@
 package me.parade.controller;
 
 import me.parade.domain.dto.UserCreateParam;
+import me.parade.result.Result;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,18 +25,15 @@ public class HelloWorldController {
      * @return 测试数据
      */
     @GetMapping("/hello")
-    public Map<String, Object> hello() {
+    public Result<String> hello() {
         logger.info("HelloWorldController init");
-        Map<String, Object> result = new HashMap<>();
-        result.put("code", 200);
-        result.put("message", "Hello World!");
-        result.put("data", "RBAC后台管理系统测试成功");
-        return result;
+        return Result.success("Hello World!", "RBAC后台管理系统测试成功");
     }
 
     @PostMapping("/user/create")
-    public String createUser(@RequestBody @Valid UserCreateParam param) {
+    public Result<String> createUser(@RequestBody @Valid UserCreateParam param) {
+        logger.info("用户创建请求: {}", param.getUsername());
         // 正常情况返回成功
-        return "创建用户成功：" + param.getUsername();
+        return Result.success("创建用户成功：" + param.getUsername());
     }
 }

@@ -1,4 +1,5 @@
-import me.parade.LombokDemo;
+package me.parade;
+
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;

@@ -1,0 +1,2 @@
+- 如果只是测试 MVC 层，优先用 @WebMvcTest(UserController.class)，这样启动更快，依赖更少。
+- 如果你的 Controller 依赖较多，或者需要完整 Spring Boot 上下文，建议用 @SpringBootTest

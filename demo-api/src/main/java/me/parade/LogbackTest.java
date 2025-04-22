@@ -30,13 +30,13 @@ public class LogbackTest implements CommandLineRunner {
         logger.warn("这是 WARN 级别的日志");
         logger.error("这是 ERROR 级别的日志");
         
-        // 测试带异常的日志
-        try {
-            // 模拟一个异常
-            int result = 1 / 0;
-        } catch (Exception e) {
-            logger.error("发生异常：", e);
-        }
+//        // 测试带异常的日志
+//        try {
+//            // 模拟一个异常
+//            int result = 1 / 0;
+//        } catch (Exception e) {
+//            logger.error("发生异常：", e);
+//        }
         
         logger.info("日志框架配置测试完成！");
     }
