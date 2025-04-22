@@ -1,5 +1,7 @@
 package me.parade.aspectj;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
@@ -13,8 +15,6 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.List;
@@ -103,7 +103,7 @@ public class LogAspect {
         // 过滤掉HttpServletRequest、HttpServletResponse、MultipartFile等特殊参数
         List<Object> filteredArgs = Arrays.stream(args)
                 .filter(arg -> !(arg instanceof HttpServletRequest || 
-                                arg instanceof HttpServletResponse || 
+                                arg instanceof HttpServletResponse ||
                                 arg instanceof MultipartFile))
                 .collect(Collectors.toList());
         

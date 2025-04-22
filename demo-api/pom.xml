@@ -41,11 +41,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
-
-        <dependency>
-            <groupId>me.parade</groupId>
-            <artifactId>demo-system</artifactId>
-        </dependency>
         <dependency>
             <groupId>me.parade</groupId>
             <artifactId>demo-common</artifactId>

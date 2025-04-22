@@ -1,6 +1,6 @@
 package me.parade.controller;
 
-import me.parade.aspectj.OperationLog;
+import jakarta.validation.Valid;
 import me.parade.domain.dto.UserCreateParam;
 import me.parade.result.Result;
 import org.slf4j.Logger;
@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.Valid;
 
 /**
  * 测试控制器

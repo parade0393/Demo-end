@@ -8,7 +8,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.7.9</version>
+        <version>3.4.4</version>
         <relativePath/>
     </parent>
 
@@ -38,7 +38,7 @@
     project.reporting.outputEncoding：指定 Maven 生成报告（如 Javadoc、测试报告等）时的输出编码。
     这两个属性通常会被 Maven 插件（如 maven-compiler-plugin、maven-javadoc-plugin、maven-surefire-plugin 等）自动读取和应用。
      -->
-        <java.version>11</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <!-- 统一管理 janino 版本号 -->
@@ -85,4 +85,6 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+
+
 </project>
