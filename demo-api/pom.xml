@@ -36,6 +36,12 @@
             <artifactId>lombok</artifactId>
             <scope>provided</scope>
         </dependency>
+        <!-- Spring AOP 支持 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-aop</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>me.parade</groupId>
             <artifactId>demo-system</artifactId>
@@ -43,6 +49,14 @@
         <dependency>
             <groupId>me.parade</groupId>
             <artifactId>demo-common</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.parade</groupId>
+            <artifactId>demo-system</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>me.parade</groupId>
+            <artifactId>demo-framework</artifactId>
         </dependency>
     </dependencies>
 

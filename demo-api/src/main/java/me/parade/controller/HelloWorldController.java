@@ -1,5 +1,6 @@
 package me.parade.controller;
 
+import me.parade.aspectj.OperationLog;
 import me.parade.domain.dto.UserCreateParam;
 import me.parade.result.Result;
 import org.slf4j.Logger;
@@ -10,8 +11,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 测试控制器
@@ -26,7 +25,6 @@ public class HelloWorldController {
      */
     @GetMapping("/hello")
     public Result<String> hello() {
-        logger.info("HelloWorldController init");
         return Result.success("Hello World!", "RBAC后台管理系统测试成功");
     }
 
