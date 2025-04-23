@@ -22,6 +22,11 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-aop</artifactId>
         </dependency>
+        <!-- SpringDoc OpenAPI 文档支持 -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+        </dependency>
         <!-- lombok 依赖，仅编译期生效，生产包不包含 -->
         <dependency>
             <groupId>org.projectlombok</groupId>

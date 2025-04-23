@@ -18,6 +18,57 @@ app:
   # 基础包名配置，用于统一管理项目包名
   base-package: me.parade
 
+# SpringDoc配置
+springdoc:
+  # 默认配置
+  api-docs:
+    path: /v3/api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    doc-expansion: none
+    default-model-rendering: model
+    default-models-expand-depth: 1
+  group-configs:
+    - group: 'default'
+      paths-to-match: '/**'
+      packages-to-scan: ${app.base-package}
+
+---
+# 开发环境配置
+spring:
+  config:
+    activate:
+      on-profile: dev
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+---
+# 测试环境配置
+spring:
+  config:
+    activate:
+      on-profile: test
+springdoc:
+  api-docs:
+    enabled: true
+  swagger-ui:
+    enabled: true
+
+---
+# 生产环境配置
+spring:
+  config:
+    activate:
+      on-profile: prod
+springdoc:
+  api-docs:
+    enabled: false
+  swagger-ui:
+    enabled: false
+
 # 日志配置
 logging:
   # 日志文件路径配置
