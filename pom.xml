@@ -47,6 +47,11 @@
         <lombok.version>1.18.30</lombok.version>
         <!-- 统一管理 springdoc-openapi 版本号 -->
         <springdoc.version>2.8.6</springdoc.version>
+        <!-- 数据库相关依赖版本 -->
+        <mysql.version>8.0.28</mysql.version>
+        <druid.version>1.2.16</druid.version>
+        <mybatis-plus.version>3.5.11</mybatis-plus.version>
+        <mybatis-plus-generator.version>3.5.11</mybatis-plus-generator.version>
     </properties>
 
     <dependencyManagement>
@@ -90,6 +95,33 @@
                 <groupId>org.springdoc</groupId>
                 <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
                 <version>${springdoc.version}</version>
+            </dependency>
+            
+            <!-- MySQL驱动 -->
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            
+            <!-- Druid连接池 -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+            
+            <!-- MyBatis-Plus 
+            <type>pom</type>表示这是一个 POM 类型的依赖（不是 jar 包），只用于依赖管理。
+            <scope>import</scope>只有在 <dependencyManagement> 里才允许使用 import，表示“导入”另一个 POM 的依赖管理配置。
+            这样配置后，mybatis-plus-bom 中声明的所有依赖（如 mybatis-plus-core、mybatis-plus-boot-starter 等）都可以在你的子模块中直接引用，无需再单独指定版本号，统一由 BOM 管理。
+            -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-bom</artifactId>
+                <version>${mybatis-plus.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
