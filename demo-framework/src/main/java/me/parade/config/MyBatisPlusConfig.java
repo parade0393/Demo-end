@@ -32,7 +32,7 @@ public class MyBatisPlusConfig {
         // 分页插件
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.MYSQL));
         // 乐观锁插件
-        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+//        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         // 如果是开发环境，添加性能分析插件
         String[] activeProfiles = environment.getActiveProfiles();
         for (String profile : activeProfiles) {

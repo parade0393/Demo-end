@@ -32,28 +32,16 @@ public class BaseEntity implements Serializable {
     @TableField(fill = FieldFill.INSERT_UPDATE)
     private LocalDateTime updateTime;
 
-    /**
-     * 创建者
-     */
-    @TableField(fill = FieldFill.INSERT)
-    private Long createBy;
+//    /**
+//     * 版本号（乐观锁）
+//     */
+//    @Version
+//    @TableField(fill = FieldFill.INSERT)
+//    private Integer version;
 
-    /**
-     * 更新者
-     */
-    @TableField(fill = FieldFill.INSERT_UPDATE)
-    private Long updateBy;
-
-    /**
-     * 版本号（乐观锁）
-     */
-    @Version
-    @TableField(fill = FieldFill.INSERT)
-    private Integer version;
-
-    /**
-     * 删除标志（0代表存在 1代表删除）
-     */
-    @TableLogic
-    private Integer delFlag;
+//    /**
+//     * 删除标志（0代表存在 1代表删除）
+//     */
+//    @TableLogic
+//    private Integer delFlag;
 }
