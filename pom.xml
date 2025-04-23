@@ -52,6 +52,7 @@
         <druid.version>1.2.16</druid.version>
         <mybatis-plus.version>3.5.11</mybatis-plus.version>
         <mybatis-plus-generator.version>3.5.11</mybatis-plus-generator.version>
+        <velocity.version>2.3</velocity.version>
     </properties>
 
     <dependencyManagement>
@@ -122,6 +123,13 @@
                 <version>${mybatis-plus.version}</version>
                 <type>pom</type>
                 <scope>import</scope>
+            </dependency>
+
+            <!-- Velocity模板引擎 -->
+            <dependency>
+                <groupId>org.apache.velocity</groupId>
+                <artifactId>velocity-engine-core</artifactId>
+                <version>${velocity.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
