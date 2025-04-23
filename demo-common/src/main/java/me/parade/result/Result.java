@@ -53,7 +53,7 @@ public class Result<T> {
      */
     public static <T> Result<T> success(String message, T data) {
         Result<T> result = new Result<>();
-        result.setCode(200);
+        result.setCode(ResultCode.SUCCESS);
         result.setMessage(message);
         result.setData(data);
         return result;
@@ -66,7 +66,7 @@ public class Result<T> {
      * @return 失败结果
      */
     public static <T> Result<T> error() {
-        return error(500, "操作失败");
+        return error(ResultCode.ERROR, "操作失败");
     }
 
     /**
