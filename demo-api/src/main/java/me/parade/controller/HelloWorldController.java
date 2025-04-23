@@ -36,7 +36,12 @@ public class HelloWorldController {
     @GetMapping("/hello")
     public String hello() {
 //        throw new ApiException(401, ResultCode.VALIDATE_FAILED, "RBAC后台管理系统测试失败");
-        return "RBAC后台管理系统测试成功";
+//        UserCreateParam userCreateParam = new UserCreateParam();
+//        userCreateParam.setUsername("parade");
+//        userCreateParam.setPassword("123456");
+//        userCreateParam.setPassword("111");
+//        return userCreateParam;
+        return "测试成功";
 //        return Result.success("Hello World!", "RBAC后台管理系统测试成功");
     }
 
