@@ -86,7 +86,7 @@ logging:
 # 可以将这些配置添加到application.yml或application-dev.yml中
 jwt:
   # JWT加密密钥,不少于 32 字节
-  secret: parade_jwt_secret_key_123456_trfdgfgytgf
+  secret: secret_key_1234567890_abcdefg_123456_parade
   # 访问令牌过期时间（毫秒），默认30分钟
   access-token-expiration: 1800000
   # 刷新令牌过期时间（毫秒），默认7天
