@@ -84,6 +84,10 @@
             <artifactId>spring-boot-starter-test</artifactId>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>me.parade</groupId>
+            <artifactId>demo-system</artifactId>
+        </dependency>
     </dependencies>
 
 </project>

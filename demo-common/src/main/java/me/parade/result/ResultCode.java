@@ -33,4 +33,6 @@ public interface ResultCode {
      * 资源不存在
      */
     Integer NOT_FOUND = 404;
+
+    Integer BUSINESS_EXCEPTION = -1;
 }
