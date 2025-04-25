@@ -1,45 +1,48 @@
 package me.parade.security.utils;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.boot.context.properties.ConfigurationProperties;
-import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 
 /**
  * JWT配置类，用于配置JWT相关参数
  */
-@Configuration
+@Component
 @ConfigurationProperties(prefix = "jwt")
-@Data
+@Getter
+@Setter
 public class JwtConfig {
     /**
      * JWT加密密钥
      */
-    private String secret = "parade_jwt_secret_key";
+    private String secret;
     
     /**
      * 访问令牌过期时间（毫秒）
      * 默认30分钟
      */
-    private long accessTokenExpiration = 1800000;
+    private long accessTokenExpiration;
     
     /**
      * 刷新令牌过期时间（毫秒）
      * 默认7天
      */
-    private long refreshTokenExpiration = 604800000;
+    private long refreshTokenExpiration;
     
     /**
      * 令牌前缀
      */
-    private String tokenPrefix = "Bearer ";
+    private String tokenPrefix;
     
     /**
      * 请求头名称
      */
-    private String headerString = "Authorization";
+    private String headerString;
     
     /**
      * 令牌发行者
      */
-    private String issuer = "parade";
+    private String issuer;
+
 }

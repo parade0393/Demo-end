@@ -149,16 +149,17 @@ public class SecurityConfig {
      * 这些URL不需要认证即可访问
      *
      * @return String[] 白名单URL数组
+     * 这里的路径不能带有context-path的配置
      */
     private String[] getPermitAllUrls() {
         return new String[]{
                 // 登录相关
-                "/api/auth/login",
-                "/api/auth/refresh",
+                "/auth/login",
+                "/auth/refresh",
                 // 验证码
-                "/api/captcha/**",
+                "/captcha/**",
                 // 公开资源
-                "/api/public/**",
+                "/public/**",
                 // 静态资源
                 "/static/**",
                 // 错误页面

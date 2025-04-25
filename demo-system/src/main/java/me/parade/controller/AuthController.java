@@ -18,7 +18,7 @@ import java.util.List;
  * 提供登录、获取用户信息、获取菜单路由等接口
  */
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 @RequiredArgsConstructor
 @ResponseResult
 public class AuthController {
