@@ -7,7 +7,6 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import me.parade.security.utils.JwtConfig;
 import me.parade.security.utils.JwtTokenUtil;
@@ -26,22 +25,18 @@ import java.io.IOException;
  * 负责从请求中提取JWT令牌，验证其有效性，并将认证信息设置到SecurityContext中
  */
 @Slf4j
-@RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     private final JwtConfig jwtConfig;
     private final JwtTokenUtil jwtTokenUtil;
-    private UserDetailsService userDetailsService;
+    private final UserDetailsService userDetailsService;
 
-    /**
-     * 设置UserDetailsService
-     * 使用构造函数注入可能会导致循环依赖，因此使用setter注入
-     *
-     * @param userDetailsService 用户详情服务
-     */
-    public void setUserDetailsService(UserDetailsService userDetailsService) {
+    public JwtAuthenticationFilter(JwtConfig jwtConfig, JwtTokenUtil jwtTokenUtil, UserDetailsService userDetailsService) {
+        this.jwtConfig = jwtConfig;
+        this.jwtTokenUtil = jwtTokenUtil;
         this.userDetailsService = userDetailsService;
     }
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)

@@ -1,11 +1,9 @@
 package me.parade.domain.entity;
 
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import lombok.*;
-import me.parade.domain.common.BaseEntity;
-
-import java.io.Serializable;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * <p>
@@ -26,12 +24,10 @@ public class SysRoleMenu  {
     /**
      * 角色ID
      */
-    @TableId("role_id")
     private Long roleId;
 
     /**
      * 菜单ID
      */
-    @TableId("menu_id")
     private Long menuId;
 }

@@ -60,7 +60,7 @@ public class MenuServiceImpl implements MenuService {
         // 转换为MenuTreeVO
         List<MenuTreeVO> menuVOs = menus.stream()
                 .map(this::convertToMenuTreeVO)
-                .collect(Collectors.toList());
+                .toList();
 
         // 按父ID分组
         Map<Long, List<MenuTreeVO>> parentIdMap = menuVOs.stream()

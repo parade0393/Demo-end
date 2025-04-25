@@ -16,6 +16,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -38,6 +39,7 @@ public class SecurityConfig {
 
     private final JwtConfig jwtConfig;
     private final JwtTokenUtil jwtTokenUtil;
+    private final UserDetailsService userDetailsService;
     
     /**
      * 安全过滤链配置
@@ -109,7 +111,7 @@ public class SecurityConfig {
      */
     @Bean
     public JwtAuthenticationFilter jwtAuthenticationFilter() {
-        return new JwtAuthenticationFilter(jwtConfig, jwtTokenUtil);
+        return new JwtAuthenticationFilter(jwtConfig, jwtTokenUtil,userDetailsService);
     }
 
     /**
