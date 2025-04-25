@@ -12,6 +12,7 @@ spring:
   # 激活开发环境配置
   profiles:
     active: dev
+    include: mybatis
 
 # 应用配置
 app:

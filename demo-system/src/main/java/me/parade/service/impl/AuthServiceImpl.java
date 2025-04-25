@@ -1,0 +1,89 @@
+package me.parade.service.impl;
+
+import lombok.RequiredArgsConstructor;
+import me.parade.domain.dto.auth.LoginResponse;
+import me.parade.domain.dto.auth.UserInfoResponse;
+import me.parade.domain.entity.SysUser;
+import me.parade.exception.BusinessException;
+import me.parade.mapper.UserMapper;
+import me.parade.security.utils.JwtConfig;
+import me.parade.security.utils.JwtTokenUtil;
+import me.parade.security.utils.SecurityUtils;
+import me.parade.service.AuthService;
+import me.parade.service.MenuService;
+import me.parade.service.RoleService;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+
+/**
+ * 认证服务实现类
+ */
+@Service
+@RequiredArgsConstructor
+public class AuthServiceImpl implements AuthService {
+
+    private final AuthenticationManager authenticationManager;
+    private final JwtTokenUtil jwtTokenUtil;
+    private final JwtConfig jwtConfig;
+    private final UserMapper userMapper;
+    private final RoleService roleService;
+    private final MenuService menuService;
+
+    @Override
+    public LoginResponse login(String username, String password) {
+        // 进行身份验证
+        Authentication authentication = authenticationManager.authenticate(
+                new UsernamePasswordAuthenticationToken(username, password)
+        );
+        
+        // 认证成功后，将认证信息存入SecurityContext
+        //设置 SecurityContext，是为了让本次请求线程能获取到认证用户信息，便于后续业务处理。
+        //典型场景：登录后立即返回用户详情、记录登录日志、触发审计等。
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+        
+        // 生成JWT令牌
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        String accessToken = jwtTokenUtil.generateAccessToken(userDetails);
+        String refreshToken = jwtTokenUtil.generateRefreshToken(userDetails);
+        
+        // 构建并返回登录响应
+        return LoginResponse.builder()
+                .token(accessToken)
+                .refreshToken(refreshToken)
+                .tokenType(jwtConfig.getTokenPrefix().trim())
+                .expiresIn(jwtConfig.getAccessTokenExpiration())
+                .build();
+    }
+
+    @Override
+    public UserInfoResponse getCurrentUserInfo() {
+        // 获取当前认证用户名
+        String username = SecurityUtils.getUsername();
+        
+        // 查询用户信息
+        SysUser user = userMapper.selectByUsername(username);
+        if (user == null) {
+            throw new BusinessException("用户不存在");
+        }
+        
+        // 获取用户角色和权限
+        List<String> roles = roleService.getUserRoleCodes(user.getId());
+        List<String> permissions = menuService.getUserPermissions(user.getId());
+        
+        // 构建并返回用户信息响应
+        return UserInfoResponse.builder()
+                .userId(user.getId())
+                .username(user.getUsername())
+                .name(user.getName())
+                .avatar(user.getAvatar())
+                .roles(roles)
+                .permissions(permissions)
+                .build();
+    }
+}
