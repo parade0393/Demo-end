@@ -24,6 +24,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * Spring Security 配置类
@@ -126,21 +127,32 @@ public class SecurityConfig {
     /**
      * CORS配置源
      * 配置跨域资源共享策略
+     * setAllowCredentials(true) 主要用于允许前端跨域时携带 cookie（如 sessionId）、HTTP 认证信息（如 basic auth），与 header 方式的 token 认证无直接关系。
+     * 只要你的前端通过 header（如 Authorization: Bearer xxx）传递 token，且 CORS 配置允许所有 header（setAllowedHeaders("*")），就可以正常跨域携带和读取 token，无需 setAllowCredentials(true)。
+     * 什么时候需要 setAllowCredentials(true)，只有在你需要前端跨域请求时自动携带 cookie（如 withCredentials: true），或者需要让浏览器自动带上认证信息时才需要设置为 true。
+     * 如果你设置了 setAllowCredentials(true)，则 setAllowedOriginPatterns 不能为 "*"，必须指定具体域名，否则浏览器会拦截。
      *
      * @return CorsConfigurationSource CORS配置源
      */
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("*")); // 在生产环境中应该限制为特定域名
+        // 允许的跨域请求来源模式，生产环境中应限制为特定域名
+        configuration.setAllowedOriginPatterns(List.of("*"));
+        // 允许的HTTP方法
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setExposedHeaders(Arrays.asList(jwtConfig.getHeaderString()));
+        // 允许的HTTP头
+        configuration.setAllowedHeaders(List.of("*"));
+        // 暴露的HTTP头，客户端可以访问这些头
+        // configuration.setExposedHeaders(Collections.singletonList(jwtConfig.getHeaderString()));
+        // 是否允许发送Cookie信息
         configuration.setAllowCredentials(true);
+        // 预检请求的缓存时间（秒）
         configuration.setMaxAge(3600L);
-        
+
+        // 配置跨域资源共享策略的路径
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/**", configuration); // 对所有路径生效
         return source;
     }
 

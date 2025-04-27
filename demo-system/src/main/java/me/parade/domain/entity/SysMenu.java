@@ -7,8 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import me.parade.domain.common.BaseEntity;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 菜单表
@@ -114,4 +112,5 @@ public class SysMenu extends BaseEntity {
      */
     @TableField("params")
     private String params;
+
 }

@@ -97,19 +97,16 @@ public class MenuServiceImpl implements MenuService {
                 .title(menu.getName())
                 .icon(menu.getIcon())
                 .hidden(menu.getVisible() == 0)
+                .alwaysShow(menu.getAlwaysShow() == 1)
                 .keepAlive(true)
                 .build();
-                
         return MenuTreeVO.builder()
                 .id(menu.getId())
                 .parentId(menu.getParentId())
-                .name(menu.getName())
-                .icon(menu.getIcon())
-                .routeName(menu.getRouteName())
-                .routePath(menu.getRoutePath())
+                .name(menu.getRouteName())
+                .path(menu.getRoutePath())
                 .component(menu.getComponent())
                 .sort(menu.getSort())
-                .hidden(menu.getVisible() == 0)
                 .meta(meta)
                 .children(new ArrayList<>())
                 .build();

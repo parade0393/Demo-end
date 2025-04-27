@@ -34,11 +34,6 @@ public class MenuTreeVO {
     private String name;
     
     /**
-     * 菜单图标
-     */
-    private String icon;
-    
-    /**
      * 路由名称
      */
     private String routeName;
@@ -46,7 +41,7 @@ public class MenuTreeVO {
     /**
      * 路由路径
      */
-    private String routePath;
+    private String path;
     
     /**
      * 组件路径
@@ -57,11 +52,7 @@ public class MenuTreeVO {
      * 排序
      */
     private Integer sort;
-    
-    /**
-     * 是否隐藏
-     */
-    private Boolean hidden;
+
     
     /**
      * 路由元数据
