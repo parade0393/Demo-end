@@ -167,6 +167,7 @@ public class SecurityConfig {
         return new String[]{
                 // 登录相关
                 "/auth/login",
+                "auth/logout",
                 "/auth/refresh",
                 // 验证码
                 "/captcha/**",

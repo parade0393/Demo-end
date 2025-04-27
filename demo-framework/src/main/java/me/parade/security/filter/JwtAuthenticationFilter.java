@@ -1,8 +1,6 @@
 package me.parade.security.filter;
 
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.MalformedJwtException;
-import io.jsonwebtoken.security.SignatureException;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -74,9 +72,9 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             SecurityContextHolder.clearContext();
             log.debug("JWT令牌已过期: {}", e.getMessage());
             request.setAttribute("expired", true);
-        } catch (MalformedJwtException | SignatureException e) {
-            log.debug("无效的JWT令牌: {}", e.getMessage());
         } catch (Exception e) {
+            // 安全上下文清除保障（防止上下文残留）
+            SecurityContextHolder.clearContext();
             log.error("无法设置用户认证: {}", e.getMessage());
         }
 

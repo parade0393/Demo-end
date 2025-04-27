@@ -86,4 +86,10 @@ public class AuthServiceImpl implements AuthService {
                 .permissions(permissions)
                 .build();
     }
+    
+    @Override
+    public void logout() {
+        // 清除SecurityContext中的认证信息
+        SecurityContextHolder.clearContext();
+    }
 }

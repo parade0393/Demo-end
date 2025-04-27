@@ -56,4 +56,13 @@ public class AuthController {
     public List<MenuTreeVO> getUserRoutes() {
         return menuService.getCurrentUserMenuTree();
     }
+    
+    /**
+     * 用户注销
+     * 清除当前用户的认证信息
+     */
+    @PostMapping("/logout")
+    public void logout() {
+        authService.logout();
+    }
 }
