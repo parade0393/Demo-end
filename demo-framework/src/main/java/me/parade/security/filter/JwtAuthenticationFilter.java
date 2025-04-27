@@ -70,6 +70,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 }
             }
         } catch (ExpiredJwtException e) {
+            // 安全上下文清除保障（防止上下文残留）
+            SecurityContextHolder.clearContext();
             log.debug("JWT令牌已过期: {}", e.getMessage());
             request.setAttribute("expired", true);
         } catch (MalformedJwtException | SignatureException e) {
