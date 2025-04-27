@@ -1,3 +1,16 @@
+# 日志配置
+logging:
+  # 日志文件路径配置
+  path:
+    # Windows环境下的日志路径
+    windows: D:\${spring.application.name}\logs
+    # Linux环境下的日志路径
+    linux: /var/log/${spring.application.name}
+  level:
+    # 设置基础包下的日志级别为debug
+    # 日志级别从低到高依次是：TRACE, DEBUG, INFO, WARN, ERROR, OFF。设置日志级别为debug意味着该包下的类将会记录DEBUG级别及以上的日志信息，包括DEBUG, INFO, WARN, 和ERROR级别的日志。
+    ${app.base-package}: debug
+
 # 服务器配置
 server:
   port: 8080
@@ -12,7 +25,7 @@ spring:
   # 激活开发环境配置
   profiles:
     active: dev
-    include: mybatis
+    include: mybatis,jwt
 
 # 应用配置
 app:
@@ -70,31 +83,3 @@ springdoc:
   swagger-ui:
     enabled: false
 
-# 日志配置
-logging:
-  # 日志文件路径配置
-  path:
-    # Windows环境下的日志路径
-    windows: D:\${spring.application.name}\logs
-    # Linux环境下的日志路径
-    linux: /var/log/${spring.application.name}
-  level:
-    # 设置基础包下的日志级别为debug
-    # 日志级别从低到高依次是：TRACE, DEBUG, INFO, WARN, ERROR, OFF。设置日志级别为debug意味着该包下的类将会记录DEBUG级别及以上的日志信息，包括DEBUG, INFO, WARN, 和ERROR级别的日志。
-    ${app.base-package}: debug
-
-# JWT配置示例
-# 可以将这些配置添加到application.yml或application-dev.yml中
-jwt:
-  # JWT加密密钥,不少于 32 字节
-  secret: secret_key_1234567890_abcdefg_123456_parade
-  # 访问令牌过期时间（毫秒），默认30分钟
-  access-token-expiration: 1800000
-  # 刷新令牌过期时间（毫秒），默认7天
-  refresh-token-expiration: 604800000
-  # 令牌前缀
-  token-prefix: "Bearer "
-  # 请求头名称
-  header-string: "Authorization"
-  # 令牌发行者
-  issuer: parade

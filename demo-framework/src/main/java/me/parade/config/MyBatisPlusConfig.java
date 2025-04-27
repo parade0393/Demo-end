@@ -1,16 +1,15 @@
 package me.parade.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
+import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
-import com.baomidou.mybatisplus.extension.plugins.inner.OptimisticLockerInnerInterceptor;
 import com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+import org.apache.ibatis.reflection.MetaObject;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import com.baomidou.mybatisplus.extension.plugins.inner.IllegalSQLInnerInterceptor;
-import com.baomidou.mybatisplus.core.handlers.MetaObjectHandler;
-import org.apache.ibatis.reflection.MetaObject;
+
 import java.time.LocalDateTime;
 
 @Configuration
@@ -34,13 +33,13 @@ public class MyBatisPlusConfig {
         // 乐观锁插件
 //        interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
         // 如果是开发环境，添加性能分析插件
-        String[] activeProfiles = environment.getActiveProfiles();
-        for (String profile : activeProfiles) {
-            if ("dev".equals(profile)) {
-                interceptor.addInnerInterceptor(new IllegalSQLInnerInterceptor());
-                break;
-            }
-        }
+//        String[] activeProfiles = environment.getActiveProfiles();
+//        for (String profile : activeProfiles) {
+//            if ("dev".equals(profile)) {
+//                interceptor.addInnerInterceptor(new IllegalSQLInnerInterceptor());
+//                break;
+//            }
+//        }
         return interceptor;
     }
 
