@@ -73,4 +73,17 @@ public class AuthController {
     public void logout() {
         authService.logout();
     }
+
+    /**
+     * 刷新令牌
+     * 根据刷新令牌获取新的访问令牌
+     *
+     * @param refreshToken 刷新令牌
+     * @return 登录响应（包含新的token、刷新token和过期时间）
+     */
+    @Operation(summary = "刷新令牌", description = "根据刷新令牌获取新的访问令牌")
+    @PostMapping("/refresh")
+    public LoginResponse refreshToken(@Parameter(description = "刷新令牌") @RequestParam String refreshToken) {
+        return authService.refreshToken(refreshToken);
+    }
 }

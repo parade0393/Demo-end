@@ -30,4 +30,12 @@ public interface AuthService {
      * 清除当前用户的认证信息
      */
     void logout();
+
+    /**
+     * 根据刷新令牌获取新的访问令牌
+     *
+     * @param refreshToken 刷新令牌
+     * @return 登录响应（包含新的token、刷新token和过期时间）
+     */
+    LoginResponse refreshToken(String refreshToken);
 }
