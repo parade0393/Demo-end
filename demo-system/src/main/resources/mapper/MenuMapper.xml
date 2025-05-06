@@ -13,7 +13,6 @@
         INNER JOIN sys_role r ON ur.role_id = r.id
         WHERE
             ur.user_id = #{userId}
-            AND m.type != 3
             AND r.status = 1
             AND r.is_deleted = 0
         ORDER BY

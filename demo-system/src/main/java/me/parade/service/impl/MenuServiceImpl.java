@@ -200,6 +200,7 @@ public class MenuServiceImpl implements MenuService {
     private List<MenuTreeVO> buildMenuTree(List<SysMenu> menus) {
         // 转换为MenuTreeVO
         List<MenuTreeVO> menuVOs = menus.stream()
+                .filter(menu -> menu.getType() != 3)
                 .map(this::convertToMenuTreeVO)
                 .toList();
 

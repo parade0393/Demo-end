@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import me.parade.annotation.ResponseResult;
 import me.parade.domain.dto.menu.MenuRequest;
 import me.parade.domain.entity.SysMenu;
+import me.parade.security.annotation.RequiresPermission;
 import me.parade.service.MenuService;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,6 +34,7 @@ public class MenuController {
      */
     @Operation(summary = "获取菜单列表", description = "获取所有菜单列表")
     @GetMapping("/list")
+    @RequiresPermission("system:menu:query")
     public List<SysMenu> getMenuList() {
         return menuService.getMenuList();
     }
@@ -45,6 +47,7 @@ public class MenuController {
      */
     @Operation(summary = "获取菜单详情", description = "根据菜单ID获取菜单详情")
     @GetMapping("/{menuId}")
+    @RequiresPermission("system:menu:query")
     public SysMenu getMenuDetail(@Parameter(description = "菜单ID") @PathVariable Long menuId) {
         return menuService.getMenuById(menuId);
     }
@@ -57,6 +60,7 @@ public class MenuController {
      */
     @Operation(summary = "创建菜单", description = "创建新菜单")
     @PostMapping
+    @RequiresPermission("system:menu:add")
     public Long createMenu(@Parameter(description = "菜单参数") @RequestBody @Valid MenuRequest menuRequest) {
         return menuService.createMenu(menuRequest);
     }
@@ -69,6 +73,7 @@ public class MenuController {
      */
     @Operation(summary = "更新菜单", description = "更新菜单信息")
     @PutMapping
+    @RequiresPermission("system:menu:edit")
     public boolean updateMenu(@Parameter(description = "菜单参数") @RequestBody @Valid MenuRequest menuRequest) {
         return menuService.updateMenu(menuRequest);
     }
@@ -81,6 +86,7 @@ public class MenuController {
      */
     @Operation(summary = "删除菜单", description = "根据菜单ID删除菜单")
     @DeleteMapping("/{menuId}")
+    @RequiresPermission("system:menu:delete")
     public boolean deleteMenu(@Parameter(description = "菜单ID") @PathVariable Long menuId) {
         return menuService.deleteMenu(menuId);
     }
