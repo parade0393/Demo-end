@@ -100,6 +100,15 @@ public class MenuServiceImpl implements MenuService {
     }
     
     @Override
+    public List<SysMenu> getAllMenuTree() {
+        // 查询所有可见菜单
+        List<SysMenu> menus = menuMapper.selectAllVisibleMenus();
+        
+        // 构建树形结构
+        return buildSysMenuTree(menus);
+    }
+    
+    @Override
     public SysMenu getMenuById(Long menuId) {
         return menuMapper.selectById(menuId);
     }

@@ -90,4 +90,14 @@ public class MenuController {
     public boolean deleteMenu(@Parameter(description = "菜单ID") @RequestParam Long menuId) {
         return menuService.deleteMenu(menuId);
     }
+    
+    /**
+     * 获取所有菜单树形结构
+     * @return 菜单树形结构
+     */
+    @Operation(summary = "获取所有菜单树形结构", description = "获取所有可见菜单的树形结构，用于角色权限分配")
+    @GetMapping("/tree")
+    public List<SysMenu> getAllMenuTree() {
+        return menuService.getAllMenuTree();
+    }
 }

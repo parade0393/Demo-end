@@ -17,8 +17,8 @@ mybatis-plus:
       # 驼峰下划线转换
       table-underline: true
       # 逻辑删除配置
-      logic-delete-field: isDeleted
-      logic-delete-value: 1
-      logic-not-delete-value: 0
+      # logic-delete-field: isDeleted
+      # logic-delete-value: 1
+      # logic-not-delete-value: 0
   # 配置类型处理器
   type-handlers-package: me.parade.framework.handler

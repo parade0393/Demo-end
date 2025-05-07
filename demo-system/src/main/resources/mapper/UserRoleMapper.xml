@@ -34,5 +34,22 @@
             ur.role_id = #{roleId}
             AND u.is_deleted = 0
     </select>
+    
+    <!-- 根据角色ID查询用户列表 -->
+    <select id="selectUsersByRoleId" resultType="me.parade.domain.entity.SysUser">
+        SELECT
+            u.*
+        FROM
+            sys_user u
+        INNER JOIN sys_user_role ur ON u.id = ur.user_id
+        WHERE
+            ur.role_id = #{roleId}
+            AND u.is_deleted = 0
+            <if test="username != null and username != ''">
+                AND u.username LIKE CONCAT('%', #{username}, '%')
+            </if>
+        ORDER BY
+            u.create_time DESC
+    </select>
 
 </mapper>

@@ -7,8 +7,6 @@ import lombok.Setter;
 import lombok.ToString;
 import me.parade.domain.common.BaseEntity;
 
-import java.io.Serializable;
-
 /**
  * <p>
  * 角色表

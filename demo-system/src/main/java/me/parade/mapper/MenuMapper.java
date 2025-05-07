@@ -43,7 +43,7 @@ public interface MenuMapper extends BaseMapper<SysMenu> {
      *
      * @return 菜单列表
      */
-    @Select("SELECT * FROM sys_menu WHERE visible = 1 AND is_deleted = 0 ORDER BY sort")
+    @Select("SELECT * FROM sys_menu WHERE visible = 1 ORDER BY sort")
     List<SysMenu> selectAllVisibleMenus();
 
     /**

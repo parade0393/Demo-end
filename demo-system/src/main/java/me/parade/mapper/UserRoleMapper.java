@@ -1,6 +1,7 @@
 package me.parade.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import me.parade.domain.entity.SysUser;
 import me.parade.domain.entity.SysUserRole;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
@@ -36,4 +37,13 @@ public interface UserRoleMapper extends BaseMapper<SysUserRole> {
      * @return 用户ID列表
      */
     List<Long> selectUserIdsByRoleId(@Param("roleId") Long roleId);
+    
+    /**
+     * 根据角色ID查询用户列表
+     *
+     * @param roleId 角色ID
+     * @param username 用户名（可选）
+     * @return 用户列表
+     */
+    List<SysUser> selectUsersByRoleId(@Param("roleId") Long roleId, @Param("username") String username);
 }

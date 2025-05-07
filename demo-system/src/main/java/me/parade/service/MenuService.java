@@ -74,4 +74,12 @@ public interface MenuService {
      * @return 是否成功
      */
     boolean deleteMenu(Long menuId);
+    
+    /**
+     * 获取所有可见菜单的树形结构
+     * 用于角色权限分配
+     *
+     * @return 菜单树形结构（包含id和name）
+     */
+    List<SysMenu> getAllMenuTree();
 }
