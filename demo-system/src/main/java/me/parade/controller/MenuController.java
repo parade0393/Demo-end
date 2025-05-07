@@ -59,7 +59,7 @@ public class MenuController {
      * @return 创建的菜单ID
      */
     @Operation(summary = "创建菜单", description = "创建新菜单")
-    @PostMapping
+    @PostMapping("/create")
     @RequiresPermission("system:menu:add")
     public Long createMenu(@Parameter(description = "菜单参数") @RequestBody @Valid MenuRequest menuRequest) {
         return menuService.createMenu(menuRequest);
@@ -72,7 +72,7 @@ public class MenuController {
      * @return 是否成功
      */
     @Operation(summary = "更新菜单", description = "更新菜单信息")
-    @PutMapping
+    @PostMapping("/update")
     @RequiresPermission("system:menu:edit")
     public boolean updateMenu(@Parameter(description = "菜单参数") @RequestBody @Valid MenuRequest menuRequest) {
         return menuService.updateMenu(menuRequest);
@@ -85,9 +85,9 @@ public class MenuController {
      * @return 是否成功
      */
     @Operation(summary = "删除菜单", description = "根据菜单ID删除菜单")
-    @DeleteMapping("/{menuId}")
+    @GetMapping("/delete")
     @RequiresPermission("system:menu:delete")
-    public boolean deleteMenu(@Parameter(description = "菜单ID") @PathVariable Long menuId) {
+    public boolean deleteMenu(@Parameter(description = "菜单ID") @RequestParam Long menuId) {
         return menuService.deleteMenu(menuId);
     }
 }
