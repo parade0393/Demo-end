@@ -8,6 +8,7 @@ import lombok.ToString;
 import me.parade.domain.common.BaseEntity;
 
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * <p>
@@ -72,4 +73,10 @@ public class SysDept extends BaseEntity {
      */
     @TableField("is_deleted")
     private Byte isDeleted;
+    
+    /**
+     * 子部门列表
+     */
+    @TableField(exist = false)
+    private List<SysDept> children;
 }

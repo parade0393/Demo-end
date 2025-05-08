@@ -196,4 +196,13 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, SysRole> implements
         queryWrapper.eq(SysUserRole::getUserId, userId);
         return userRoleMapper.delete(queryWrapper) > 0;
     }
+    
+    @Override
+    public String getRoleNameById(Long roleId) {
+        if (roleId == null) {
+            return null;
+        }
+        SysRole role = roleMapper.selectById(roleId);
+        return role != null ? role.getName() : null;
+    }
 }

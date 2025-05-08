@@ -87,4 +87,22 @@ public interface UserService {
      * @return 角色ID列表
      */
     List<Long> getUserRoleIds(Long userId);
+    
+    /**
+     * 根据用户ID获取用户信息
+     *
+     * @param userId 用户ID
+     * @return 用户信息
+     */
+    SysUser getById(Long userId);
+    
+    /**
+     * 根据部门ID列表分页查询用户列表
+     *
+     * @param page 分页参数
+     * @param user 查询条件
+     * @param deptIds 部门ID列表
+     * @return 用户分页列表
+     */
+    IPage<SysUser> getUserPageByDeptIds(Page<SysUser> page, SysUser user, List<Long> deptIds);
 }

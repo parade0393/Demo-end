@@ -63,9 +63,16 @@ public class MenuServiceImpl implements MenuService {
         
         // 根据用户名查询用户ID
         Long userId = menuMapper.selectUserIdByUsername(username);
+        List<SysMenu> menus;
+        if(userId == 1){
+            //超级管理员
+            menus = menuMapper.selectAllVisibleMenus();
+        }else{
+            // 查询用户菜单列表
+            menus = menuMapper.selectMenusByUserId(userId);
+        }
         
-        // 查询用户菜单列表
-        List<SysMenu> menus = menuMapper.selectMenusByUserId(userId);
+
         
         // 构建树形结构并返回
         return buildSysMenuTree(menus);

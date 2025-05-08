@@ -29,6 +29,14 @@ public interface RoleService {
      * @return 角色ID列表
      */
     List<Long> getUserRoleIds(Long userId);
+    
+    /**
+     * 根据角色ID获取角色名称
+     *
+     * @param roleId 角色ID
+     * @return 角色名称
+     */
+    String getRoleNameById(Long roleId);
 
     /**
      * 分页查询角色列表

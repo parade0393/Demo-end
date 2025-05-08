@@ -61,13 +61,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
             if (user.getStatus() != null) {
                 queryWrapper.eq(SysUser::getStatus, user.getStatus());
             }
+            if(user.getDeptId() != null) {
+                queryWrapper.eq(SysUser::getDeptId, user.getDeptId());
+            }
         }
         
         // 只查询未删除的用户
         queryWrapper.eq(SysUser::getIsDeleted, 0);
         
         // 按创建时间降序排序
-        queryWrapper.orderByDesc(SysUser::getCreateTime);
+        queryWrapper.orderByAsc(SysUser::getId);
         
         return userMapper.selectPage(page, queryWrapper);
     }
@@ -166,5 +169,51 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, SysUser> implements
     @Override
     public List<Long> getUserRoleIds(Long userId) {
         return roleMapper.selectRoleIdsByUserId(userId);
+    }
+    
+    @Override
+    public SysUser getById(Long userId) {
+        return super.getById(userId);
+    }
+    
+    @Override
+    public IPage<SysUser> getUserPageByDeptIds(Page<SysUser> page, SysUser user, List<Long> deptIds) {
+        LambdaQueryWrapper<SysUser> queryWrapper = new LambdaQueryWrapper<>();
+        
+        // 添加查询条件
+        if (user != null) {
+            // 按用户名模糊查询
+            if (StringUtils.hasText(user.getUsername())) {
+                queryWrapper.like(SysUser::getUsername, user.getUsername());
+            }
+            
+            // 按姓名模糊查询
+            if (StringUtils.hasText(user.getName())) {
+                queryWrapper.like(SysUser::getName, user.getName());
+            }
+            
+            // 按手机号模糊查询
+            if (StringUtils.hasText(user.getPhone())) {
+                queryWrapper.like(SysUser::getPhone, user.getPhone());
+            }
+            
+            // 按状态查询
+            if (user.getStatus() != null) {
+                queryWrapper.eq(SysUser::getStatus, user.getStatus());
+            }
+        }
+        
+        // 添加部门ID条件（使用IN查询）
+        if (deptIds != null && !deptIds.isEmpty()) {
+            queryWrapper.in(SysUser::getDeptId, deptIds);
+        }
+        
+        // 只查询未删除的用户
+        queryWrapper.eq(SysUser::getIsDeleted, 0);
+        
+        // 按创建时间降序排序
+        queryWrapper.orderByAsc(SysUser::getId);
+        
+        return this.page(page, queryWrapper);
     }
 }
