@@ -11,8 +11,11 @@ import me.parade.annotation.ResponseResult;
 import me.parade.domain.dto.role.*;
 import me.parade.domain.entity.SysRole;
 import me.parade.domain.entity.SysUser;
+import me.parade.domain.vo.UserVO;
 import me.parade.security.annotation.RequiresPermission;
+import me.parade.service.DeptService;
 import me.parade.service.RoleService;
+import me.parade.utils.UserConverter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,6 +32,7 @@ import java.util.List;
 public class RoleController {
 
     private final RoleService roleService;
+    private final DeptService deptService;
 
     /**
      * 角色列表查询
@@ -101,12 +105,13 @@ public class RoleController {
     @Operation(summary = "角色用户查询", description = "查询拥有指定角色的用户列表，可根据用户名过滤")
     @GetMapping("/users")
     @RequiresPermission("system:role:query")
-    public IPage<SysUser> getRoleUsers(
+    public IPage<UserVO> getRoleUsers(
             @Parameter(description = "当前页") @RequestParam(defaultValue = "1") Integer current,
             @Parameter(description = "每页大小") @RequestParam(defaultValue = "10") Integer size,
             @Parameter(description = "查询条件") RoleUserQueryRequest queryRequest) {
         Page<SysUser> page = new Page<>(current, size);
-        return roleService.getRoleUserPage(page, queryRequest.getRoleId(), queryRequest.getUsername());
+        IPage<SysUser> roleUserPage = roleService.getRoleUserPage(page, queryRequest.getRoleId(), queryRequest.getUsername());
+        return roleUserPage.convert(user -> UserConverter.convertToUserVO(user, roleService, deptService));
     }
 
     /**
@@ -180,4 +185,6 @@ public class RoleController {
     public boolean cancelUserRole(@Parameter(description = "取消分配请求") @RequestBody @Valid RoleUserCancelRequest cancelRequest) {
         return roleService.cancelUserRole(cancelRequest.getRoleId(), cancelRequest.getUserId());
     }
+
+
 }

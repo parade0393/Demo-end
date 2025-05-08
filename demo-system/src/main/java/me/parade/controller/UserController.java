@@ -17,10 +17,10 @@ import me.parade.security.annotation.RequiresPermission;
 import me.parade.service.DeptService;
 import me.parade.service.RoleService;
 import me.parade.service.UserService;
+import me.parade.utils.UserConverter;
 import org.springframework.beans.BeanUtils;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,9 +74,8 @@ public class UserController {
         }
         
         // 转换为VO
-        IPage<UserVO> voPage = userPage.convert(this::convertToUserVO);
-        
-        return voPage;
+
+        return userPage.convert(user1 -> UserConverter.convertToUserVO(user1, roleService, deptService));
     }
 
     /**
@@ -90,7 +89,7 @@ public class UserController {
     @RequiresPermission("system:user:query")
     public UserVO getUserDetail(@Parameter(description = "用户ID") @PathVariable Long userId) {
         SysUser user = userService.getById(userId);
-        return convertToUserVO(user);
+        return UserConverter.convertToUserVO(user, roleService, deptService);
     }
 
     /**
@@ -206,44 +205,5 @@ public class UserController {
         return userService.getUserRoleIds(userId);
     }
     
-    /**
-     * 将用户实体转换为视图对象
-     *
-     * @param user 用户实体
-     * @return 用户视图对象
-     */
-    private UserVO convertToUserVO(SysUser user) {
-        if (user == null) {
-            return null;
-        }
-        
-        UserVO vo = new UserVO();
-        BeanUtils.copyProperties(user, vo);
-        
-        // 设置状态名称
-        vo.setStatusName(user.getStatus() != null && user.getStatus() == 1 ? "正常" : "禁用");
-        
-        // 设置部门名称
-        if (user.getDeptId() != null) {
-            vo.setDeptName(deptService.getDeptNameById(user.getDeptId()));
-        }
-        
-        // 设置角色信息
-        List<Long> roleIds = roleService.getUserRoleIds(user.getId());
-        vo.setRoleIds(roleIds);
-        
-        // 设置角色名称列表
-        if (roleIds != null && !roleIds.isEmpty()) {
-            List<String> roleNames = new ArrayList<>();
-            for (Long roleId : roleIds) {
-                String roleName = roleService.getRoleNameById(roleId);
-                if (roleName != null) {
-                    roleNames.add(roleName);
-                }
-            }
-            vo.setRoleNames(roleNames);
-        }
-        
-        return vo;
-    }
+
 }
