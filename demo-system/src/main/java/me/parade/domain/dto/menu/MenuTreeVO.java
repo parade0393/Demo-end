@@ -42,6 +42,11 @@ public class MenuTreeVO {
      * 路由路径
      */
     private String path;
+
+    /**
+     * 重定向地址
+     */
+    private String redirect;
     
     /**
      * 组件路径
