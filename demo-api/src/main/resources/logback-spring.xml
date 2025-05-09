@@ -3,18 +3,17 @@
 <configuration>
     <!-- 从Spring配置文件中读取基础包名配置 -->
     <springProperty scope="context" name="basePackage" source="app.base-package"/>
-    
-    <!-- 从Spring配置文件中读取操作系统相关的日志路径配置 -->
-    <springProperty scope="context" name="windows.log.path" source="logging.path.windows"/>
-    <springProperty scope="context" name="linux.log.path" source="logging.path.linux"/>
+
+    <!-- 直接读取应用名称 -->
+    <springProperty scope="context" name="appName" source="spring.application.name" defaultValue="rbac-admin"/>
     
     <!-- 根据操作系统类型选择日志路径 -->
     <if condition='property("os.name").toLowerCase().contains("windows")'>
         <then>
-            <property name="log.path" value="${windows.log.path}"/>
+            <property name="log.path" value="D:\${appName}\logs"/>
         </then>
         <else>
-            <property name="log.path" value="${linux.log.path}"/>
+            <property name="log.path" value="/var/log/${appName}"/>
         </else>
     </if>
     <!-- 日志输出格式 - 定义日志的显示格式，包含以下元素：

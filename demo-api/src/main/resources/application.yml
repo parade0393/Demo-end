@@ -1,16 +1,3 @@
-# 日志配置
-logging:
-  # 日志文件路径配置
-  path:
-    # Windows环境下的日志路径
-    windows: D:\${spring.application.name}\logs
-    # Linux环境下的日志路径
-    linux: /var/log/${spring.application.name}
-  level:
-    # 设置基础包下的日志级别为debug
-    # 日志级别从低到高依次是：TRACE, DEBUG, INFO, WARN, ERROR, OFF。设置日志级别为debug意味着该包下的类将会记录DEBUG级别及以上的日志信息，包括DEBUG, INFO, WARN, 和ERROR级别的日志。
-    ${app.base-package}: debug
-
 # 服务器配置
 server:
   port: 8080
@@ -46,6 +33,13 @@ springdoc:
     - group: 'default'
       paths-to-match: '/**'
       packages-to-scan: ${app.base-package}
+
+# 日志配置
+logging:
+  level:
+    # 设置基础包下的日志级别为debug
+    # 日志级别从低到高依次是：TRACE, DEBUG, INFO, WARN, ERROR, OFF。设置日志级别为debug意味着该包下的类将会记录DEBUG级别及以上的日志信息，包括DEBUG, INFO, WARN, 和ERROR级别的日志。
+    ${app.base-package}: debug
 
 ---
 # 开发环境配置
