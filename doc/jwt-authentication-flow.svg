@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="1000" height="800" fill="#f8f9fa"/>
+  
+  <!-- 标题 -->
+  <text x="500" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">JWT认证流程图</text>
+  
+  <!-- 客户端 -->
+  <rect x="50" y="100" width="150" height="60" rx="10" ry="10" fill="#e6f7ff" stroke="#1890ff" stroke-width="2"/>
+  <text x="125" y="140" font-family="Arial" font-size="16" text-anchor="middle">客户端</text>
+  
+  <!-- 认证Controller -->
+  <rect x="300" y="100" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="140" font-family="Arial" font-size="16" text-anchor="middle">认证Controller</text>
+  
+  <!-- SecurityConfig配置 -->
+  <rect x="300" y="200" width="200" height="60" rx="10" ry="10" fill="#fff7e6" stroke="#fa8c16" stroke-width="2"/>
+  <text x="400" y="240" font-family="Arial" font-size="16" text-anchor="middle">SecurityConfig配置</text>
+  <text x="400" y="260" font-family="Arial" font-size="12" text-anchor="middle">(配置放行白名单)</text>
+  
+  <!-- 认证令牌 -->
+  <rect x="300" y="300" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="330" font-family="Arial" font-size="16" text-anchor="middle">创建认证令牌</text>
+  <text x="400" y="350" font-family="Arial" font-size="12" text-anchor="middle">(UsernamePasswordAuthenticationToken)</text>
+  
+  <!-- 认证管理器 -->
+  <rect x="300" y="400" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="430" font-family="Arial" font-size="16" text-anchor="middle">提交认证请求</text>
+  <text x="400" y="450" font-family="Arial" font-size="12" text-anchor="middle">(AuthenticationManager.authenticate)</text>
+  
+  <!-- 认证提供者 -->
+  <rect x="300" y="500" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="530" font-family="Arial" font-size="16" text-anchor="middle">认证提供者</text>
+  <text x="400" y="550" font-family="Arial" font-size="12" text-anchor="middle">(DaoAuthenticationProvider)</text>
+  
+  <!-- 用户详情服务 -->
+  <rect x="600" y="500" width="200" height="60" rx="10" ry="10" fill="#f9f0ff" stroke="#722ed1" stroke-width="2"/>
+  <text x="700" y="530" font-family="Arial" font-size="16" text-anchor="middle">用户详情服务</text>
+  <text x="700" y="550" font-family="Arial" font-size="12" text-anchor="middle">(UserDetailsServiceImpl)</text>
+  
+  <!-- 密码检验 -->
+  <rect x="300" y="600" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="630" font-family="Arial" font-size="16" text-anchor="middle">密码检验</text>
+  <text x="400" y="650" font-family="Arial" font-size="12" text-anchor="middle">(PasswordEncoder)</text>
+  
+  <!-- 认证成功 -->
+  <rect x="300" y="700" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="730" font-family="Arial" font-size="16" text-anchor="middle">认证成功</text>
+  <text x="400" y="750" font-family="Arial" font-size="12" text-anchor="middle">(已认证的Authentication)</text>
+  
+  <!-- JWT工具类 -->
+  <rect x="600" y="700" width="200" height="60" rx="10" ry="10" fill="#fff2f0" stroke="#ff4d4f" stroke-width="2"/>
+  <text x="700" y="730" font-family="Arial" font-size="16" text-anchor="middle">JWT工具类</text>
+  <text x="700" y="750" font-family="Arial" font-size="12" text-anchor="middle">(JwtTokenUtil)</text>
+  
+  <!-- 连接线 -->
+  <!-- 客户端到认证Controller -->
+  <line x1="200" y1="130" x2="300" y2="130" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="250" y="120" font-family="Arial" font-size="12" text-anchor="middle">1. 发送用户名/密码</text>
+  
+  <!-- 认证Controller到SecurityConfig -->
+  <line x1="400" y1="160" x2="400" y2="200" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="180" font-family="Arial" font-size="12" text-anchor="middle">2. 通过放行白名单</text>
+  
+  <!-- SecurityConfig到认证令牌 -->
+  <line x1="400" y1="260" x2="400" y2="300" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="280" font-family="Arial" font-size="12" text-anchor="middle">3. 创建认证令牌</text>
+  
+  <!-- 认证令牌到认证管理器 -->
+  <line x1="400" y1="360" x2="400" y2="400" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="380" font-family="Arial" font-size="12" text-anchor="middle">4. 提交认证请求</text>
+  
+  <!-- 认证管理器到认证提供者 -->
+  <line x1="400" y1="460" x2="400" y2="500" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="480" font-family="Arial" font-size="12" text-anchor="middle">5. 委托认证</text>
+  
+  <!-- 认证提供者到用户详情服务 -->
+  <line x1="500" y1="530" x2="600" y2="530" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="550" y="520" font-family="Arial" font-size="12" text-anchor="middle">6. 加载用户</text>
+  
+  <!-- 用户详情服务到认证提供者 -->
+  <line x1="600" y1="550" x2="500" y2="550" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="550" y="570" font-family="Arial" font-size="12" text-anchor="middle">返回用户信息和权限</text>
+  
+  <!-- 认证提供者到密码检验 -->
+  <line x1="400" y1="560" x2="400" y2="600" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="580" font-family="Arial" font-size="12" text-anchor="middle">7. 密码检验</text>
+  
+  <!-- 密码检验到认证成功 -->
+  <line x1="400" y1="660" x2="400" y2="700" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="680" font-family="Arial" font-size="12" text-anchor="middle">8. 认证成功</text>
+  
+  <!-- 认证成功到JWT工具类 -->
+  <line x1="500" y1="730" x2="600" y2="730" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="550" y="720" font-family="Arial" font-size="12" text-anchor="middle">9. 生成token</text>
+  
+  <!-- JWT工具类到客户端 -->
+  <path d="M 700 760 L 700 780 L 125 780 L 125 160" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="400" y="800" font-family="Arial" font-size="12" text-anchor="middle">10. 返回token给客户端</text>
+  
+  <!-- 箭头标记 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#000"/>
+    </marker>
+  </defs>
+</svg>

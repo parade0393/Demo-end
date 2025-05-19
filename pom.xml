@@ -92,7 +92,7 @@
                 <groupId>org.projectlombok</groupId>
                 <artifactId>lombok</artifactId>
                 <version>${lombok.version}</version>
-                <scope>provided</scope>
+                <scope>provided</scope><!-- provided 表示该依赖在编译和测试阶段有效，但运行时由容器或JDK提供，不会被打包到最终的部署包中 -->
             </dependency>
             <!-- 统一管理 springdoc-openapi 依赖 -->
             <dependency>

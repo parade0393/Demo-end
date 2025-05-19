@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1000" height="800" xmlns="http://www.w3.org/2000/svg">
+  <!-- 背景 -->
+  <rect width="1000" height="800" fill="#f8f9fa"/>
+  
+  <!-- 标题 -->
+  <text x="500" y="40" font-family="Arial" font-size="24" text-anchor="middle" font-weight="bold">JWT授权流程图</text>
+  
+  <!-- 客户端 -->
+  <rect x="50" y="100" width="150" height="60" rx="10" ry="10" fill="#e6f7ff" stroke="#1890ff" stroke-width="2"/>
+  <text x="125" y="140" font-family="Arial" font-size="16" text-anchor="middle">客户端</text>
+  
+  <!-- Security配置 -->
+  <rect x="300" y="100" width="200" height="60" rx="10" ry="10" fill="#fff7e6" stroke="#fa8c16" stroke-width="2"/>
+  <text x="400" y="130" font-family="Arial" font-size="16" text-anchor="middle">Security配置</text>
+  <text x="400" y="150" font-family="Arial" font-size="12" text-anchor="middle">(SecurityConfig)</text>
+  
+  <!-- 过滤器链 -->
+  <rect x="300" y="200" width="200" height="60" rx="10" ry="10" fill="#fff7e6" stroke="#fa8c16" stroke-width="2"/>
+  <text x="400" y="230" font-family="Arial" font-size="16" text-anchor="middle">过滤器链</text>
+  <text x="400" y="250" font-family="Arial" font-size="12" text-anchor="middle">(FilterChain)</text>
+  
+  <!-- JWT认证过滤器 -->
+  <rect x="300" y="300" width="200" height="60" rx="10" ry="10" fill="#fff7e6" stroke="#fa8c16" stroke-width="2"/>
+  <text x="400" y="330" font-family="Arial" font-size="16" text-anchor="middle">JWT认证过滤器</text>
+  <text x="400" y="350" font-family="Arial" font-size="12" text-anchor="middle">(JwtAuthenticationFilter)</text>
+  
+  <!-- JWT工具类 -->
+  <rect x="600" y="300" width="200" height="60" rx="10" ry="10" fill="#fff2f0" stroke="#ff4d4f" stroke-width="2"/>
+  <text x="700" y="330" font-family="Arial" font-size="16" text-anchor="middle">JWT工具类</text>
+  <text x="700" y="350" font-family="Arial" font-size="12" text-anchor="middle">(JwtTokenUtil)</text>
+  
+  <!-- 安全上下文 -->
+  <rect x="300" y="400" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="430" font-family="Arial" font-size="16" text-anchor="middle">安全上下文</text>
+  <text x="400" y="450" font-family="Arial" font-size="12" text-anchor="middle">(SecurityContextHolder)</text>
+  
+  <!-- 授权管理 -->
+  <rect x="300" y="500" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="530" font-family="Arial" font-size="16" text-anchor="middle">授权管理</text>
+  <text x="400" y="550" font-family="Arial" font-size="12" text-anchor="middle">(AccessDecisionManager)</text>
+  
+  <!-- 用户详情服务 -->
+  <rect x="600" y="400" width="200" height="60" rx="10" ry="10" fill="#f9f0ff" stroke="#722ed1" stroke-width="2"/>
+  <text x="700" y="430" font-family="Arial" font-size="16" text-anchor="middle">用户详情服务</text>
+  <text x="700" y="450" font-family="Arial" font-size="12" text-anchor="middle">(UserDetailsServiceImpl)</text>
+  
+  <!-- Controller -->
+  <rect x="300" y="600" width="200" height="60" rx="10" ry="10" fill="#f6ffed" stroke="#52c41a" stroke-width="2"/>
+  <text x="400" y="640" font-family="Arial" font-size="16" text-anchor="middle">Controller</text>
+  
+  <!-- 连接线 -->
+  <!-- 客户端到Security配置 -->
+  <line x1="200" y1="130" x2="300" y2="130" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="250" y="120" font-family="Arial" font-size="12" text-anchor="middle">1. 发送请求(携带JWT)</text>
+  
+  <!-- Security配置到过滤器链 -->
+  <line x1="400" y1="160" x2="400" y2="200" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="180" font-family="Arial" font-size="12" text-anchor="middle">2. 不在放行配置中</text>
+  
+  <!-- 过滤器链到JWT认证过滤器 -->
+  <line x1="400" y1="260" x2="400" y2="300" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="280" font-family="Arial" font-size="12" text-anchor="middle">3. 进入认证过滤器</text>
+  
+  <!-- JWT认证过滤器到JWT工具类 -->
+  <line x1="500" y1="330" x2="600" y2="330" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="550" y="320" font-family="Arial" font-size="12" text-anchor="middle">4. 验证token</text>
+  
+  <!-- JWT工具类到用户详情服务 -->
+  <line x1="700" y1="360" x2="700" y2="400" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="750" y="380" font-family="Arial" font-size="12" text-anchor="middle">5. 获取用户信息</text>
+  
+  <!-- 用户详情服务到JWT认证过滤器 -->
+  <path d="M 600 430 L 550 430 L 550 350 L 500 350" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="550" y="420" font-family="Arial" font-size="12" text-anchor="middle">返回用户和权限</text>
+  
+  <!-- JWT认证过滤器到安全上下文 -->
+  <line x1="400" y1="360" x2="400" y2="400" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="380" font-family="Arial" font-size="12" text-anchor="middle">6. 存储认证信息</text>
+  
+  <!-- 安全上下文到授权管理 -->
+  <line x1="400" y1="460" x2="400" y2="500" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="480" font-family="Arial" font-size="12" text-anchor="middle">7. 授权检查</text>
+  
+  <!-- 授权管理到Controller -->
+  <line x1="400" y1="560" x2="400" y2="600" stroke="#000" stroke-width="2" marker-end="url(#arrowhead)"/>
+  <text x="500" y="580" font-family="Arial" font-size="12" text-anchor="middle">8. 授权通过</text>
+  
+  <!-- Controller到客户端 -->
+  <path d="M 400 660 L 400 700 L 125 700 L 125 160" stroke="#000" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+  <text x="250" y="690" font-family="Arial" font-size="12" text-anchor="middle">9. 返回响应</text>
+  
+  <!-- 箭头标记 -->
+  <defs>
+    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+      <polygon points="0 0, 10 3.5, 0 7" fill="#000"/>
+    </marker>
+  </defs>
+</svg>

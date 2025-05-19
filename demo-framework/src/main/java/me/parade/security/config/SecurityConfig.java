@@ -81,7 +81,7 @@ public class SecurityConfig {
     /**
      * 认证管理器
      * 用于处理认证请求
-     *
+     * 将自动配置的AuthenticationManager暴露为可注入的Bean
      * @param authenticationConfiguration 认证配置
      * @return AuthenticationManager 认证管理器
      * @throws Exception 配置异常

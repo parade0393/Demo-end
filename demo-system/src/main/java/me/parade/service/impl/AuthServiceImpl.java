@@ -40,6 +40,9 @@ public class AuthServiceImpl implements AuthService {
     public LoginResponse login(String username, String password) {
        try {
            // 进行身份验证
+           //1. new UsernamePasswordAuthenticationToken(username, password)创建一个“未认证”的 Authentication 对象包含principal：用户名，credentials：密码，authorities：null示未认证
+           //使用UsernamePasswordAuthenticationToken这个类型的Authentication，就会使用DaoAuthenticationProvider
+           //
            Authentication authentication = authenticationManager.authenticate(
                    new UsernamePasswordAuthenticationToken(username, password)
            );
