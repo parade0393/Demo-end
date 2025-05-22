@@ -1,5 +1,6 @@
 package me.parade.security.utils;
 
+import me.parade.constants.AuthConstants;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -116,5 +117,19 @@ public class SecurityUtils {
      */
     public static boolean hasRole(String role) {
         return getAuthorities().contains(role);
+    }
+    
+    /**
+     * 判断当前用户是否为系统内置超级管理员
+     *
+     * @return 是否为超级管理员
+     */
+    public static boolean isAdmin() {
+        UserDetails userDetails = getUserDetails();
+        if(userDetails == null){
+            return false;
+        }
+
+        return getRoles().contains(AuthConstants.ROLE_ADMIN);
     }
 }

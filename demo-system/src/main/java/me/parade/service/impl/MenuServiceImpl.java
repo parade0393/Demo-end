@@ -43,8 +43,15 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public List<MenuTreeVO> getUserMenuTree(Long userId) {
-        // 查询用户菜单列表
-        List<SysMenu> menus = menuMapper.selectMenusByUserId(userId);
+
+        List<SysMenu> menus;
+        if(SecurityUtils.isAdmin()){
+            //超级管理员
+            menus = menuMapper.selectAllVisibleMenus();
+        }else{
+            // 查询用户菜单列表
+            menus = menuMapper.selectMenusByUserId(userId);
+        }
         
         // 转换为树形结构
         return buildMenuTree(menus);
@@ -64,7 +71,7 @@ public class MenuServiceImpl implements MenuService {
         // 根据用户名查询用户ID
         Long userId = menuMapper.selectUserIdByUsername(username);
         List<SysMenu> menus;
-        if(userId == 1){
+        if(SecurityUtils.isAdmin()){
             //超级管理员
             menus = menuMapper.selectAllVisibleMenus();
         }else{
