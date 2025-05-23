@@ -130,6 +130,9 @@ public class MenuServiceImpl implements MenuService {
     @Override
     @Transactional(rollbackFor = Exception.class)
     public Long createMenu(MenuRequest menuRequest) {
+//        if(menuRequest.getType() == 1 && menuRequest.getComponent() ==null){
+//            menuRequest.setComponent("Layout");
+//        }
         // 转换为实体
         SysMenu menu = new SysMenu();
         BeanUtils.copyProperties(menuRequest, menu);
@@ -148,7 +151,7 @@ public class MenuServiceImpl implements MenuService {
         } else {
             // 顶级菜单
             menu.setParentId(0L);
-            menu.setTreePath("");
+            menu.setTreePath("0");
         }
         
         // 插入数据库
