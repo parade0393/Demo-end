@@ -1,5 +1,6 @@
 package me.parade.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.FieldStrategy;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Getter;
@@ -112,8 +113,8 @@ public class SysMenu extends BaseEntity {
     /**
      * 路由参数
      */
-    @TableField("params")
-    private String params;
+    @TableField(value = "query",updateStrategy = FieldStrategy.ALWAYS)
+    private String query;
 
     /**
      * 子菜单列表

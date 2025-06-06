@@ -267,6 +267,7 @@ public class MenuServiceImpl implements MenuService {
                 .hidden(menu.getVisible() == 0)
                 .alwaysShow(menu.getAlwaysShow() == 1)
                 .keepAlive(menu.getKeepAlive() == 1)
+                .query(menu.getQuery())
                 .build();
         return MenuTreeVO.builder()
                 .id(menu.getId())

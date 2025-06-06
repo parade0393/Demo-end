@@ -98,4 +98,7 @@ public class MenuRequest {
      */
     @Schema(description = "重定向地址")
     private String redirect;
+
+    @Schema(description = "路由参数")
+    private String query;
 }
