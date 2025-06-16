@@ -191,7 +191,7 @@ public class MenuServiceImpl implements MenuService {
             } else {
                 // 顶级菜单
                 menu.setParentId(0L);
-                menu.setTreePath("");
+                menu.setTreePath("0");
             }
         } else {
             // 父节点没变，保持原树路径
