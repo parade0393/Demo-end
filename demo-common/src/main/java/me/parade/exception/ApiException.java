@@ -15,17 +15,13 @@ public class ApiException extends RuntimeException {
      * HTTP状态码
      * status的意义在于控制HTTP协议级别的状态码，而不是JSON中的业务码。这对于前端处理HTTP错误非常重要，因为很多HTTP客户端会根据HTTP状态码来触发不同的错误处理流程。
      */
-    private int status;
+    private final int status;
     
     /**
      * 错误码
      */
-    private Integer code;
-    
-    /**
-     * 错误消息
-     */
-    private String message;
+    private final Integer code;
+
     
     /**
      * 构造函数
@@ -33,7 +29,9 @@ public class ApiException extends RuntimeException {
      * @param message 错误消息
      */
     public ApiException(String message) {
-        this(400, 400, message);
+        super(message);
+        this.code = 400;
+        this.status = 400;
     }
     
     /**
@@ -43,7 +41,9 @@ public class ApiException extends RuntimeException {
      * @param message 错误消息
      */
     public ApiException(Integer code, String message) {
-        this(400, code, message);
+        super(message);
+        this.code = code;
+        this.status = 400;
     }
     
     /**
@@ -57,7 +57,6 @@ public class ApiException extends RuntimeException {
         super(message);
         this.status = status;
         this.code = code;
-        this.message = message;
     }
     
     /**
@@ -72,6 +71,5 @@ public class ApiException extends RuntimeException {
         super(message, cause);
         this.status = status;
         this.code = code;
-        this.message = message;
     }
 }

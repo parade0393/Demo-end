@@ -63,6 +63,9 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(response, HttpStatus.BAD_REQUEST);
     }
 
+
+
+
     /**
      * 处理业务异常
      */
@@ -73,7 +76,7 @@ public class GlobalExceptionHandler {
         Result<Void> response = Result.error(e.getCode(), e.getMessage());
 
         // 将统一响应包装在ResponseEntity中，并设置HTTP状态码
-        return new ResponseEntity<>(response, HttpStatus.INTERNAL_SERVER_ERROR);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
     
     /**

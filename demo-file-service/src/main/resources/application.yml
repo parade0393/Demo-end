@@ -1,0 +1,35 @@
+# 文件上传自定义配置
+file:
+  upload:
+    ## 存储路径配置 (根据操作系统自动选择)
+    base-path:
+      windows: D:/uploads/
+      linux: /opt/uploads/
+    # 允许的文件类型
+    allowed-types:
+      - image/jpeg
+      - image/png
+      - image/gif
+      - image/webp
+      - image/bmp
+      - application/pdf
+      - text/plain
+      - application/msword
+      - application/vnd.openxmlformats-officedocument.wordprocessingml.document
+      - application/vnd.ms-excel
+      - application/vnd.openxmlformats-officedocument.spreadsheetml.sheet
+      - application/zip
+      - application/x-rar-compressed
+    # 文件大小限制 (字节)
+    max-size: 104857600  # 100MB
+    # 图片压缩配置
+    image:
+      compress:
+        enabled: true
+        quality: 0.8
+        max-width: 1920
+        max-height: 1080
+    # 文件去重配置
+    deduplication:
+      enabled: true
+      algorithm: MD5  # MD5 或 SHA256

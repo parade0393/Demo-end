@@ -14,12 +14,7 @@ public class BusinessException extends RuntimeException {
     /**
      * 错误码
      */
-    private Integer code;
-    
-    /**
-     * 错误消息
-     */
-    private String message;
+    private final Integer code;
     
     /**
      * 构造函数
@@ -27,7 +22,8 @@ public class BusinessException extends RuntimeException {
      * @param message 错误消息
      */
     public BusinessException(String message) {
-        this(500, message);
+        super(message);
+        this.code = 500;
     }
     
     /**
@@ -39,7 +35,11 @@ public class BusinessException extends RuntimeException {
     public BusinessException(Integer code, String message) {
         super(message);
         this.code = code;
-        this.message = message;
+    }
+
+    public BusinessException(String message, Throwable cause) {
+        super(message, cause);
+        this.code = 500;
     }
     
     /**
@@ -52,6 +52,5 @@ public class BusinessException extends RuntimeException {
     public BusinessException(Integer code, String message, Throwable cause) {
         super(message, cause);
         this.code = code;
-        this.message = message;
     }
 }

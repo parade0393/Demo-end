@@ -13,6 +13,16 @@ spring:
   profiles:
     active: dev
     include: mybatis,jwt
+  # 文件上传配置
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 100MB
+      max-request-size: 100MB
+      # 文件大小阈值，当上传文件超过此大小时会写入磁盘而不是内存
+      file-size-threshold: 2KB
+      # 是否延迟解析文件上传请求，false表示立即解析
+      resolve-lazily: false
 
 # 应用配置
 app:
