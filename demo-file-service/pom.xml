@@ -43,5 +43,9 @@
             <groupId>me.parade</groupId>
             <artifactId>demo-common</artifactId>
         </dependency>
+        <dependency>
+            <groupId>net.coobird</groupId>
+            <artifactId>thumbnailator</artifactId>
+        </dependency>
     </dependencies>
 </project>

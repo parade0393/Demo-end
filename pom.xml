@@ -84,6 +84,11 @@
                 <artifactId>demo-generator</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>me.parade</groupId>
+                <artifactId>demo-file-service</artifactId>
+                <version>${project.version}</version>
+            </dependency>
             <!-- logback 条件表达式需要 janino -->
             <dependency>
                 <groupId>org.codehaus.janino</groupId>

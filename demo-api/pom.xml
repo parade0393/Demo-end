@@ -53,6 +53,10 @@
             <groupId>me.parade</groupId>
             <artifactId>demo-framework</artifactId>
         </dependency>
+        <dependency>
+            <groupId>me.parade</groupId>
+            <artifactId>demo-file-service</artifactId>
+        </dependency>
     </dependencies>
 
     <build>
